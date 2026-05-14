@@ -6,7 +6,7 @@ module
 namespace System.Reflection.Metadata
 
 structure Blob where
-  protected Buffer: Option ByteArray
+  protected Buffer: ByteArray
   protected Start: Int32
   protected Length: Int32
 
@@ -14,7 +14,7 @@ namespace Blob
 
 variable (self: Blob)
 
-protected def IsDefault : Bool := self.Buffer == .none
+protected def IsDefault : Bool := self.Buffer == ByteArray.empty
 
 end Blob
 
