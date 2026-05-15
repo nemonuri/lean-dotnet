@@ -1,20 +1,28 @@
 module
 
+
+public import Dotnet.Basic
+
 /- dotnet-runtime\src\libraries\System.Reflection.Metadata\src\System\Reflection\Metadata\Blob.cs -/
 @[expose] public section
 
 namespace System.Reflection.Metadata
 
+open Dotnet
+
+
 structure Blob where
-  protected Buffer: ByteArray
-  protected Start: Int32
-  protected Length: Int32
+  protected Buffer : Ref ByteArray
+  protected Start: USize
+  protected Length: USize
 
 namespace Blob
 
-variable (self: Blob)
 
-protected def IsDefault : Bool := self.Buffer == ByteArray.empty
+protected def IsDefault : DN Blob (ULift Bool) := do
+  let array := (← get).Buffer.get
+  return ⟨(array == default)⟩
+
 
 end Blob
 
